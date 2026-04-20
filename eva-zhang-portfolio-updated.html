@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eva Zhang — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Bodoni+Moda:ital,wght@0,300;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#1a1814;
+  --ink2:#38322c;
+  --ink3:#7a7068;
+  --accent:#2d2a5e;
+  --accent2:#6a5a8a;
+  --glass:rgba(255,255,255,0.55);
+  --glass2:rgba(255,255,255,0.35);
+  --hi:rgba(255,255,255,0.8);
+  --bd:rgba(255,255,255,0.72);
+  --bd2:rgba(0,0,0,0.07);
+  --shadow:0 4px 28px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow2:0 2px 12px rgba(0,0,0,0.06);
+  --sb:240px;
+  --r:14px;
+  --body-size:13px;
+  --body-line:1.8;
+}
+
+html,body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--ink);}
+body{
+  background:linear-gradient(160deg,#edeae4 0%,#e4e8ed 40%,#e8e3ed 100%);
+  background-attachment:fixed;
+}
+
+/* blobs */
+.blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;}
+.blob1{width:420px;height:420px;top:-100px;right:-80px;background:radial-gradient(circle,rgba(160,140,210,0.2) 0%,transparent 70%);}
+.blob2{width:340px;height:340px;bottom:-80px;left:60px;background:radial-gradient(circle,rgba(120,165,210,0.16) 0%,transparent 70%);}
+.blob3{width:220px;height:220px;top:40%;left:30%;background:radial-gradient(circle,rgba(200,185,230,0.1) 0%,transparent 70%);}
+
+/* layout */
+.wrap{display:block;min-height:100vh;position:relative;z-index:1;}
+
+/* SIDEBAR */
+.sb{
+  position:fixed;top:0;left:0;bottom:0;width:var(--sb);
+  background:rgba(255,255,255,0.5);
+  backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);
+  border-right:0.5px solid var(--bd);
+  box-shadow:2px 0 20px rgba(0,0,0,0.04);
+  padding:2rem 1.1rem 1.8rem 1.4rem;
+  display:flex;flex-direction:column;gap:0;
+  z-index:20;overflow-y:auto;
+}
+.sb-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:400;line-height:1.2;color:var(--ink);letter-spacing:0.01em;margin-bottom:4px;}
+.sb-name em{font-style:italic;color:var(--ink3);}
+.sb-sub{font-family:'Bodoni Moda',serif;font-style:italic;font-size:9px;color:var(--ink3);letter-spacing:0.05em;margin-bottom:1.5rem;line-height:1.7;}
+
+/* lang buttons */
+.lang-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.4rem;}
+.lb{width:30px;height:30px;border-radius:50%;border:0.5px solid rgba(0,0,0,0.12);background:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:9.5px;font-weight:500;color:var(--ink3);cursor:pointer;letter-spacing:0.02em;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.lb:hover{background:rgba(255,255,255,0.8);color:var(--ink);}
+.lb.on{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(45,42,94,0.3);}
+
+/* nav */
+.nav{display:flex;flex-direction:column;gap:2px;flex:1;margin-bottom:1.4rem;}
+.nb{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;color:var(--ink3);text-align:left;padding:7px 10px 7px 12px;border-radius:9px;transition:all 0.18s;position:relative;letter-spacing:0.01em;}
+.nb:hover{color:var(--ink);background:rgba(255,255,255,0.55);}
+.nb.on{color:var(--ink);font-weight:700;background:rgba(255,255,255,0.65);box-shadow:var(--shadow2);}
+.nb.on::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:2.5px;height:13px;background:var(--accent);border-radius:2px;}
+
+.sb-contact{font-family:'DM Sans',sans-serif;font-size:9.5px;font-weight:300;color:var(--ink3);line-height:2.1;}
+.sb-contact a{color:var(--accent2);text-decoration:none;border-bottom:0.5px solid rgba(106,90,138,0.25);}
+.sb-contact a:hover{color:var(--accent);}
+
+/* MAIN */
+.main{margin-left:var(--sb);padding:2.4rem 2.6rem 3.5rem;min-height:100vh;width:calc(100% - var(--sb));max-width:none;}
+.panel{display:none;}
+.panel.on{display:block;animation:rise 0.25s ease both;}
+@keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* glass card */
+.g{background:var(--glass);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:0.5px solid var(--bd);border-radius:var(--r);box-shadow:var(--shadow);position:relative;}
+.g::before{content:'';position:absolute;inset:0;border-radius:var(--r);background:linear-gradient(135deg,rgba(255,255,255,0.6) 0%,transparent 60%);pointer-events:none;}
+.g2{background:var(--glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:0.5px solid rgba(255,255,255,0.6);border-radius:10px;}
+
+/* section heading */
+.sh{font-family:'Bodoni Moda',serif;font-style:italic;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:1.2rem;display:flex;align-items:center;gap:10px;}
+.sh::after{content:'';flex:1;height:0.5px;background:rgba(0,0,0,0.08);}
+.dv{height:0.5px;background:rgba(0,0,0,0.07);margin:2.2rem 0;}
+
+/* ── ABOUT ── */
+.hero-eyebrow{font-family:'Bodoni Moda',serif;font-style:italic;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink3);margin-bottom:1rem;}
+.big{font-family:'Playfair Display',serif;font-size:52px;font-weight:400;line-height:0.93;letter-spacing:-1px;color:var(--ink);margin-bottom:1rem;}
+.big em{font-style:italic;color:var(--ink3);}
+.hero-tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;font-weight:400;color:var(--accent2);line-height:1.4;margin-bottom:1.5rem;max-width:640px;}
+.bio{font-family:'DM Sans',sans-serif;font-size:var(--body-size);font-weight:300;color:var(--ink2);line-height:var(--body-line);max-width:640px;margin-bottom:1.5rem;}
+.bio p{margin-bottom:0.9rem;}
+.bio p:last-child{margin-bottom:0;}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem;}
+.st{padding:.95rem 1.1rem;}
+.stn{font-family:'Playfair Display',serif;font-size:30px;font-weight:400;color:var(--ink);margin-bottom:4px;line-height:1;}
+.stl{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:400;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase;}
+
+.cloud{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.2rem;}
+.tag{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:300;padding:4px 13px;border:0.5px solid rgba(0,0,0,0.1);border-radius:20px;color:var(--ink2);background:rgba(255,255,255,0.45);transition:background 0.15s;}
+.tag:hover{background:rgba(255,255,255,0.75);}
+.tag.ac{background:rgba(255,255,255,0.45);border-color:rgba(0,0,0,0.1);color:var(--ink2);}
+
+/* Skills section */
+.skill-group{margin-bottom:1.2rem;}
+.skill-group-title{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:var(--ink2);letter-spacing:0.05em;margin-bottom:8px;}
+
+.lgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.le{display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:300;padding:7px 13px;color:var(--ink);}
+.lv{font-family:'Bodoni Moda',serif;font-style:italic;font-size:10px;color:var(--ink3);}
+
+/* ── EDUCATION ── */
+.ee{display:grid;grid-template-columns:2px 1fr;gap:0 1.3rem;margin-bottom:1.8rem;}
+.el{background:rgba(0,0,0,0.1);border-radius:2px;position:relative;}
+.el::before{content:'';position:absolute;top:6px;left:-4px;width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,0.12);background:rgba(255,255,255,0.85);}
+.ee.cur .el::before{background:var(--accent);border-color:var(--accent);}
+.ed{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.ei{font-family:'Bodoni Moda',serif;font-style:italic;font-size:15.5px;color:var(--ink2);margin-bottom:3px;display:block;}
+.ei-link{font-family:'Bodoni Moda',serif;font-style:italic;font-size:15.5px;color:var(--ink2);margin-bottom:3px;text-decoration:none;border-bottom:0.5px solid rgba(0,0,0,0.2);display:inline-block;}
+.ei-link:hover{color:var(--accent);border-color:var(--accent);}
+.em{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:300;color:var(--ink3);margin-bottom:8px;}
+.en-text{font-family:'DM Sans',sans-serif;font-size:var(--body-size);font-weight:300;color:var(--ink2);line-height:var(--body-line);}
+.dis{font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:300;color:var(--accent2);margin:7px 0 9px;font-style:italic;}
+.etags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.etag{font-family:'DM Sans',sans-serif;font-size:9.5px;padding:3px 10px;border:0.5px solid rgba(0,0,0,0.08);border-radius:20px;color:var(--ink3);background:rgba(255,255,255,0.42);}
+
+/* ── EXPERIENCE ── uses same dot+line pattern as education */
+.org-group{position:relative;margin-bottom:2rem;padding-left:calc(1.3rem + 12px);}
+.org-group::before{content:'';position:absolute;left:1px;top:6px;bottom:0;width:2px;background:rgba(45,42,94,0.22);border-radius:2px;}
+.org-group::after{content:'';position:absolute;top:6px;left:-3px;width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,0.12);background:rgba(255,255,255,0.85);}
+/* standalone entry (Podcast, Intern) — same grid as .ee */
+.xe-standalone{display:grid;grid-template-columns:2px 1fr;gap:0 1.3rem;margin-bottom:2.4rem;}
+.xe-standalone .xe-line{background:rgba(0,0,0,0.1);border-radius:2px;position:relative;}
+.xe-standalone .xe-line::before{content:'';position:absolute;top:6px;left:-4px;width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,0.12);background:rgba(255,255,255,0.85);}
+/* grouped org header */
+.org-header{margin-bottom:0.9rem;}
+.org-line{display:none;}
+.org-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.org-span{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:300;color:var(--ink3);margin-bottom:8px;}
+/* roles inside a group */
+.xe{margin-bottom:1.3rem;padding-bottom:0;border-bottom:none;}
+.xe:last-child{margin-bottom:0;}
+.xe-inner{padding-left:0;border-left:none;margin-left:0;}
+/* title row */
+.xh{display:block;margin-bottom:2px;}
+.xt{font-family:'Playfair Display',serif;font-size:14px;font-weight:500;color:var(--ink);}
+.xd{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:300;color:var(--ink3);display:block;margin-top:2px;margin-bottom:6px;}
+.xo{font-family:'Bodoni Moda',serif;font-style:italic;font-size:13px;color:var(--ink2);margin-bottom:8px;}
+.xl{list-style:none;font-family:'DM Sans',sans-serif;font-size:var(--body-size);font-weight:300;color:var(--ink2);line-height:var(--body-line);}
+.xl li{padding-left:14px;position:relative;margin-bottom:2px;}
+.xl li::before{content:'·';position:absolute;left:0;color:var(--accent2);font-size:15px;line-height:1.5;}
+.exp-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.exp-link{font-family:'DM Sans',sans-serif;font-size:10.5px;color:var(--accent2);text-decoration:none;border:0.5px solid rgba(106,90,138,0.3);border-radius:20px;padding:3px 12px;transition:all 0.15s;display:inline-flex;align-items:center;gap:4px;}
+.exp-link:hover{background:rgba(106,90,138,0.08);border-color:var(--accent2);}
+
+/* ── PROJECTS (new expandable card design) ── */
+.pgrid{display:flex;flex-direction:column;gap:16px;max-width:700px;}
+
+.pc-wrap{position:relative;}
+
+.pc{
+  border-radius:var(--r);
+  background:var(--glass);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border:0.5px solid var(--bd);
+  box-shadow:0 6px 32px rgba(0,0,0,0.09),0 1px 4px rgba(0,0,0,0.04);
+  overflow:hidden;
+  cursor:pointer;
+  transition:box-shadow 0.25s,transform 0.25s;
+  position:relative;
+}
+.pc::before{content:'';position:absolute;inset:0;border-radius:var(--r);background:linear-gradient(135deg,rgba(255,255,255,0.6) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.pc:hover{box-shadow:0 10px 44px rgba(0,0,0,0.13);transform:translateY(-2px);}
+
+.pc-preview{display:flex;flex-direction:row;align-items:stretch;position:relative;z-index:1;min-width:0;}
+.pc-img{width:140px;min-width:140px;flex-shrink:0;background:rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:48px;border-right:0.5px solid rgba(255,255,255,0.5);}
+.pc-info{padding:1.2rem 1.3rem;flex:1;min-width:0;}
+.pc-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+.pc-subtitle{font-family:'Bodoni Moda',serif;font-style:italic;font-size:10px;color:var(--ink3);margin-bottom:8px;letter-spacing:0.05em;}
+.pc-oneline{font-family:'DM Sans',sans-serif;font-size:var(--body-size);font-weight:300;color:var(--ink2);line-height:var(--body-line);margin-bottom:10px;}
+.pc-expand-hint{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--accent2);display:flex;align-items:center;gap:4px;margin-top:6px;}
+.pc-expand-hint svg{transition:transform 0.3s;}
+.pc.open .pc-expand-hint svg{transform:rotate(180deg);}
+
+/* expanded content overlay */
+.pc-detail{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  z-index:200;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.pc-detail.open{display:flex;}
+
+.pc-backdrop{
+  position:absolute;inset:0;
+  background:rgba(30,25,40,0.45);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.pc-modal{
+  position:relative;z-index:1;
+  background:rgba(245,242,238,0.92);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border:0.5px solid var(--bd);
+  border-radius:18px;
+  box-shadow:0 20px 80px rgba(0,0,0,0.18),0 4px 16px rgba(0,0,0,0.1);
+  width:100%;max-width:620px;
+  max-height:85vh;
+  display:flex;flex-direction:column;
+  animation:modalIn 0.3s ease both;
+  overflow:hidden;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(0.94)translateY(20px);}to{opacity:1;transform:scale(1)translateY(0);}}
+.pc-modal-head{
+  padding:1.5rem 1.5rem 1rem;
+  border-bottom:0.5px solid rgba(0,0,0,0.07);
+  flex-shrink:0;
+  display:flex;align-items:flex-start;justify-content:space-between;
+}
+.pc-modal-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+.pc-modal-sub{font-family:'Bodoni Moda',serif;font-style:italic;font-size:11px;color:var(--ink3);}
+.pc-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--ink3);padding:4px;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;transition:background 0.15s;flex-shrink:0;margin-left:12px;}
+.pc-close:hover{background:rgba(0,0,0,0.07);}
+.pc-modal-body{padding:1.2rem 1.5rem 1.5rem;overflow-y:auto;flex:1;}
+.pc-role{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:var(--accent);background:rgba(45,42,94,0.07);border:0.5px solid rgba(45,42,94,0.15);border-radius:20px;padding:3px 12px;display:inline-block;margin-bottom:12px;}
+.pc-modal-body p{font-family:'DM Sans',sans-serif;font-size:var(--body-size);font-weight:300;color:var(--ink2);line-height:var(--body-line);margin-bottom:0.85rem;}
+.pc-modal-body p:last-child{margin-bottom:0;}
+.pc-modal-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:12px;border-top:0.5px solid rgba(0,0,0,0.07);}
+.pc-modal-link{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--accent2);text-decoration:none;border:0.5px solid rgba(106,90,138,0.3);border-radius:20px;padding:5px 14px;transition:all 0.15s;display:inline-flex;align-items:center;gap:5px;}
+.pc-modal-link:hover{background:rgba(106,90,138,0.1);border-color:var(--accent2);}
+
+/* Game iframe inside modal */
+.game-launch-box{display:flex;align-items:center;gap:14px;padding:16px 20px;background:rgba(45,42,94,0.06);border:1px solid rgba(45,42,94,0.14);border-radius:12px;margin-top:16px;}
+.game-launch-icon{font-size:28px;flex-shrink:0;}
+.game-launch-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+.game-launch-sub{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:300;color:var(--ink3);}
+.game-launch-btn{margin-left:auto;flex-shrink:0;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:#fff;background:var(--accent);border:none;border-radius:20px;padding:8px 20px;text-decoration:none;cursor:pointer;transition:background 0.15s;}
+.game-launch-btn:hover{background:var(--accent2);}
+
+/* RESOURCES */
+.rgrid{display:grid;gap:12px;}
+.rc{padding:1.1rem 1.3rem;display:flex;align-items:flex-start;gap:13px;}
+.ri{font-size:20px;flex-shrink:0;margin-top:1px;}
+.rt{font-family:'Playfair Display',serif;font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;}
+.rd{font-family:'DM Sans',sans-serif;font-size:var(--body-size);font-weight:300;color:var(--ink2);line-height:var(--body-line);}
+.rtag{display:inline-block;font-family:'DM Sans',sans-serif;font-size:9px;margin-top:6px;padding:3px 10px;border-radius:20px;background:rgba(0,0,0,0.04);border:0.5px solid rgba(0,0,0,0.08);color:var(--ink3);}
+
+/* ── CONTACT ── */
+.contact-wrap{max-width:520px;}
+.contact-intro{font-family:'DM Sans',sans-serif;font-size:var(--body-size);font-weight:300;color:var(--ink2);line-height:var(--body-line);margin-bottom:1.8rem;}
+.cf-group{margin-bottom:1.1rem;}
+.cf-label{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;color:var(--ink3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;display:block;}
+.cf-input,.cf-textarea{
+  width:100%;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;color:var(--ink);
+  background:rgba(255,255,255,0.5);backdrop-filter:blur(14px);
+  border:0.5px solid rgba(255,255,255,0.7);border-radius:9px;
+  padding:10px 14px;outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+}
+.cf-input:focus,.cf-textarea:focus{
+  border-color:rgba(106,90,138,0.4);
+  box-shadow:0 0 0 3px rgba(106,90,138,0.08),0 2px 8px rgba(0,0,0,0.04);
+}
+.cf-textarea{resize:vertical;min-height:120px;line-height:1.7;}
+.cf-btn{
+  font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;
+  background:var(--accent);color:#fff;
+  border:none;border-radius:9px;
+  padding:11px 28px;cursor:pointer;
+  transition:background 0.2s,transform 0.15s,box-shadow 0.2s;
+  box-shadow:0 3px 12px rgba(45,42,94,0.25);
+  letter-spacing:0.02em;
+}
+.cf-btn:hover{background:#3d3a7e;transform:translateY(-1px);box-shadow:0 5px 18px rgba(45,42,94,0.3);}
+.cf-btn:active{transform:translateY(0);}
+.cf-success{
+  display:none;padding:14px 18px;border-radius:9px;
+  background:rgba(45,42,94,0.07);border:0.5px solid rgba(45,42,94,0.2);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;color:var(--accent);
+  margin-top:12px;line-height:1.6;
+}
+.cf-note{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:300;color:var(--ink3);margin-top:16px;line-height:1.7;}
+.cf-note a{color:var(--accent2);text-decoration:none;}
+
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="wrap">
+
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="sb-name">Eva <em>Zhang</em></div>
+  <div class="sb-sub">KCL CMCI · uOttawa MCom</div>
+
+  <div class="lang-row">
+    <button class="lb on" id="l-en" onclick="setL('en')">EN</button>
+    <button class="lb" id="l-cn" onclick="setL('cn')">CN</button>
+    <button class="lb" id="l-es" onclick="setL('es')">ES</button>
+    <button class="lb" id="l-fr" onclick="setL('fr')">FR</button>
+  </div>
+
+  <nav class="nav">
+    <button class="nb on" onclick="go('about',this)" data-key="nav_about">About</button>
+    <button class="nb" onclick="go('edu',this)" data-key="nav_edu">Education</button>
+    <button class="nb" onclick="go('exp',this)" data-key="nav_exp">Experience</button>
+    <button class="nb" onclick="go('proj',this)" data-key="nav_proj">Projects</button>
+    <button class="nb" onclick="go('res',this)" data-key="nav_res">Resources</button>
+    <button class="nb" onclick="go('contact',this)" data-key="nav_contact">Contact</button>
+  </nav>
+
+  <div class="sb-contact">
+    +1 613 883 9399<br>
+    ziyuezhang2025@163.com<br>
+    Ottawa, Canada<br>
+    <a href="https://www.linkedin.com/in/eva-z-6266b7263" target="_blank">LinkedIn ↗</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ── ABOUT ── -->
+  <section class="panel on" id="p-about">
+    <div class="hero-eyebrow" data-key="hero_eyebrow"></div>
+    <div class="big">Eva<br><em>Zhang</em></div>
+    <div class="hero-tagline" data-key="hero_tagline"></div>
+
+    <div class="bio">
+      <p data-key="bio_p1"></p>
+      <p data-key="bio_p2"></p>
+      <p data-key="bio_p3"></p>
+      <p data-key="bio_p4"></p>
+    </div>
+
+    <div class="stats">
+      <div class="st g"><div class="stn">4</div><div class="stl" data-key="stat_lang"></div></div>
+      <div class="st g"><div class="stn" style="font-size:20px;margin-top:5px;">KCL</div><div class="stl" data-key="stat_kcl"></div></div>
+      <div class="st g"><div class="stn" style="font-size:20px;margin-top:5px;">uO</div><div class="stl" data-key="stat_uo"></div></div>
+    </div>
+
+    <div class="sh" data-key="sh_skills_creative"></div>
+    <div class="skill-group">
+      <div class="skill-group-title" data-key="skill_group1_title"></div>
+      <div class="cloud">
+        <span class="tag" data-key="skill_critical"></span>
+        <span class="tag" data-key="skill_writing"></span>
+        <span class="tag" data-key="skill_cultural"></span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title" data-key="skill_group2_title"></div>
+      <div class="cloud">
+        <span class="tag ac" data-key="skill_ai"></span>
+        <span class="tag" data-key="skill_visual"></span>
+        <span class="tag" data-key="skill_chardesign"></span>
+      </div>
+    </div>
+
+    <div class="dv"></div>
+    <div class="sh" data-key="sh_lang"></div>
+    <div class="lgrid">
+      <div class="le g2"><span data-key="lang_mandarin"></span><span class="lv" data-key="lang_native"></span></div>
+      <div class="le g2"><span>English</span><span class="lv" data-key="lang_fluent"></span></div>
+      <div class="le g2"><span>Español</span><span class="lv">A2</span></div>
+      <div class="le g2"><span>日本語</span><span class="lv">N5</span></div>
+    </div>
+
+    <div class="dv"></div>
+    <div class="sh" data-key="sh_interests"></div>
+    <div class="cloud">
+      <span class="tag" data-key="int_illus"></span>
+      <span class="tag" data-key="int_culture"></span>
+      <span class="tag" data-key="int_religion"></span>
+      <span class="tag" data-key="int_meta"></span>
+      <span class="tag" data-key="int_lit"></span>
+      <span class="tag" data-key="int_lang"></span>
+      <span class="tag ac" data-key="int_ai"></span>
+      <span class="tag" data-key="int_coffee"></span>
+    </div>
+  </section>
+
+  <!-- ── EDUCATION ── -->
+  <section class="panel" id="p-edu">
+    <div class="sh" data-key="nav_edu"></div>
+
+    <div class="ee cur">
+      <div class="el"></div>
+      <div>
+        <div class="ed" data-key="deg_mcom"></div>
+        <a href="https://www.uottawa.ca/en" target="_blank" class="ei ei-link">University of Ottawa ↗</a>
+        <div class="em" data-key="deg_uo_meta"></div>
+        <div class="en-text" data-key="deg_uo_desc"></div>
+      </div>
+    </div>
+
+    <div class="ee">
+      <div class="el"></div>
+      <div>
+        <div class="ed" data-key="deg_ba"></div>
+        <a href="https://www.kcl.ac.uk/index" target="_blank" class="ei ei-link">King's College London ♛ ↗</a>
+        <div class="em" data-key="deg_kcl_meta"></div>
+        <div class="en-text" data-key="deg_kcl_desc"></div>
+        <div class="dis" data-key="dissertation"></div>
+        <div class="etags">
+          <span class="etag" data-key="mod_media"></span>
+          <span class="etag" data-key="mod_culture"></span>
+          <span class="etag" data-key="mod_creative"></span>
+          <span class="etag" data-key="mod_diversity"></span>
+          <span class="etag" data-key="mod_games"></span>
+          <span class="etag" data-key="mod_activism"></span>
+          <span class="etag" data-key="mod_performing"></span>
+          <span class="etag" data-key="mod_managing"></span>
+          <span class="etag" data-key="mod_events"></span>
+          <span class="etag" data-key="mod_entrepreneur"></span>
+          <span class="etag" data-key="mod_cities"></span>
+          <span class="etag" data-key="mod_art"></span>
+          <span class="etag" data-key="mod_music"></span>
+          <span class="etag" data-key="mod_memory"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section class="panel" id="p-exp">
+    <div class="sh" data-key="nav_exp"></div>
+
+    <!-- Standalone: Podcast -->
+    <div class="xe-standalone">
+      <div class="xe-line"></div>
+      <div>
+        <div class="xh">
+          <div class="xt" data-key="exp1_title"></div>
+          <div class="xd" data-key="exp1_date"></div>
+        </div>
+        <div class="xo" data-key="exp1_org"></div>
+        <ul class="xl">
+          <li data-key="exp1_b1"></li>
+          <li data-key="exp1_b2"></li>
+          <li data-key="exp1_b3"></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Grouped: King's College London -->
+    <div class="org-group">
+      <div class="org-header">
+        <div class="org-line"></div>
+        <div>
+          <div class="org-name">King's College London</div>
+          <div class="org-span">Sep 2023 – Jan 2025 · London, UK</div>
+        </div>
+      </div>
+
+      <!-- Role 1: Graphic Designer CMCI -->
+      <div class="xe">
+        <div class="xe-inner">
+          <div class="xh">
+            <div class="xt" data-key="exp2_title"></div>
+            <div class="xd" data-key="exp2_date"></div>
+          </div>
+          <div class="xo" data-key="exp2_type"></div>
+          <ul class="xl">
+            <li data-key="exp2_b1"></li>
+            <li data-key="exp2_b2"></li>
+            <li data-key="exp2_b3"></li>
+            <li data-key="exp2_b4"></li>
+            <li data-key="exp2_b5"></li>
+            <li data-key="exp2_b6"></li>
+          </ul>
+          <div class="exp-links">
+            <a class="exp-link" href="https://www.instagram.com/expresso_yourself_cmci/" target="_blank">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"></circle></svg>
+              Instagram ↗
+            </a>
+            <a class="exp-link" href="https://padlet.com/ziyuezhang/expresso-yourself-bean-natural-bean-sustainable-pygq2wwvsbliifto" target="_blank">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              Padlet Quiz ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role 2: Mentor -->
+      <div class="xe">
+        <div class="xe-inner">
+          <div class="xh">
+            <div class="xt" data-key="exp3_title"></div>
+            <div class="xd" data-key="exp3_date"></div>
+          </div>
+          <ul class="xl">
+            <li data-key="exp3_b1"></li>
+            <li data-key="exp3_b2"></li>
+            <li data-key="exp3_b3"></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Role 3: Mentee -->
+      <div class="xe">
+        <div class="xe-inner">
+          <div class="xh">
+            <div class="xt" data-key="exp_mentee_title"></div>
+            <div class="xd" data-key="exp_mentee_date"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role 4: Mandarin Volunteer -->
+      <div class="xe">
+        <div class="xe-inner">
+          <div class="xh">
+            <div class="xt" data-key="exp4_title"></div>
+            <div class="xd" data-key="exp4_date"></div>
+          </div>
+          <div class="xo" data-key="exp4_org"></div>
+          <ul class="xl">
+            <li data-key="exp4_b1"></li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- end KCL group -->
+
+    <!-- Standalone: Editing Intern -->
+    <div class="xe-standalone">
+      <div class="xe-line"></div>
+      <div>
+        <div class="xh">
+          <div class="xt" data-key="exp5_title"></div>
+          <div class="xd" data-key="exp5_date"></div>
+        </div>
+        <div class="xo" data-key="exp5_org"></div>
+        <ul class="xl">
+          <li data-key="exp5_b1"></li>
+          <li data-key="exp5_b2"></li>
+          <li data-key="exp5_b3"></li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section class="panel" id="p-proj">
+    <div class="sh" data-key="nav_proj"></div>
+    <div class="pgrid">
+
+      <!-- Project 1: Expresso Yourself -->
+      <div class="pc-wrap">
+        <div class="pc" onclick="openProject('proj1')">
+          <div class="pc-preview">
+            <div class="pc-img" style="background:linear-gradient(135deg,rgba(101,67,33,0.12),rgba(180,120,60,0.15));">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ctext y='45' font-size='48'%3E☕%3C/text%3E%3C/svg%3E" alt="Expresso Yourself" style="width:60px;height:60px;" />
+            </div>
+            <div class="pc-info">
+              <div class="pc-title">Expresso Yourself</div>
+              <div class="pc-subtitle">CMCI Winter Festival 2024</div>
+              <div class="pc-oneline">A coffee-themed interactive event exploring expression, community, and everyday rituals.</div>
+              <div class="pc-expand-hint">
+                Explore project
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: 2096 -->
+      <div class="pc-wrap">
+        <div class="pc" onclick="openProject('proj2')">
+          <div class="pc-preview">
+            <div class="pc-img" style="background:linear-gradient(135deg,rgba(45,42,94,0.12),rgba(100,90,160,0.15));">
+              <span style="font-size:48px;">🎮</span>
+            </div>
+            <div class="pc-info">
+              <div class="pc-title">2096</div>
+              <div class="pc-subtitle">Interactive Story Game</div>
+              <div class="pc-oneline">A dystopian interactive narrative exploring control, identity, and social structure.</div>
+              <div class="pc-expand-hint">
+                Play &amp; explore
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Project modals (fixed overlay) -->
+  <div class="pc-detail" id="modal-proj1">
+    <div class="pc-backdrop" onclick="closeProject('proj1')"></div>
+    <div class="pc-modal">
+      <div class="pc-modal-head">
+        <div>
+          <div class="pc-modal-title">Expresso Yourself</div>
+          <div class="pc-modal-sub">CMCI Winter Festival 2024 · Graphic Design & Media</div>
+        </div>
+        <button class="pc-close" onclick="closeProject('proj1')">✕</button>
+      </div>
+      <div class="pc-modal-body">
+        <span class="pc-role">Graphic Designer & Media Officer · Procreate · Social Media</span>
+        <p>A group project developed for the CMCI Winter Festival, where each team designed and operated a live event. "Expresso Yourself" was built around coffee culture as a medium for expression and social connection. The event was structured into multiple time-based segments, each offering different interactive activities for participants.</p>
+        <p>As the Graphic Designer and Media Officer, I was responsible for the visual identity and digital communication of the event. I designed promotional materials for social media, developed visual assets, and managed content publishing leading up to the festival.</p>
+        <p>During the event, I also handled real-time documentation and posting, capturing moments and translating the live atmosphere into digital content.</p>
+        <div class="pc-modal-links">
+          <a class="pc-modal-link" href="https://www.instagram.com/expresso_yourself_cmci/" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"></circle></svg>
+            Instagram Account ↗
+          </a>
+          <a class="pc-modal-link" href="https://padlet.com/ziyuezhang/expresso-yourself-bean-natural-bean-sustainable-pygq2wwvsbliifto" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            Interactive Padlet Quiz ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pc-detail" id="modal-proj2">
+    <div class="pc-backdrop" onclick="closeProject('proj2')"></div>
+    <div class="pc-modal">
+      <div class="pc-modal-head">
+        <div>
+          <div class="pc-modal-title">2096</div>
+          <div class="pc-modal-sub">Interactive Story Game · Twine 2</div>
+        </div>
+        <button class="pc-close" onclick="closeProject('proj2')">✕</button>
+      </div>
+      <div class="pc-modal-body">
+        <span class="pc-role">Independent Creator · Twine 2 · Narrative Design</span>
+        <p>"2096" is an interactive story game set in a speculative future city, developed using Twine 2. The narrative draws inspiration from anti-utopian works such as "No.6" and "1984", constructing a world where society is divided by age, labour capacity, and class.</p>
+        <p>Through branching storylines and player choices, the game invites users to navigate this system and reflect on the structures that govern it. The design explores how interactive storytelling can be used to engage with political and social themes.</p>
+        <p>This project combines narrative design, world-building, and basic coding within Twine, experimenting with how digital formats can extend theoretical ideas into experiential forms.</p>
+        <div class="game-launch-box">
+          <div class="game-launch-icon">🎮</div>
+          <div>
+            <div class="game-launch-title">Play 2096</div>
+            <div class="game-launch-sub">Opens in a new tab — best experienced on desktop</div>
+          </div>
+          <a class="game-launch-btn" href="https://miriyuu.github.io/2096-Twine-2-Game/" target="_blank">Play ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RESOURCES ── -->
+  <section class="panel" id="p-res">
+    <div class="sh" data-key="res_sh"></div>
+    <div class="rgrid">
+      <div class="rc g">
+        <div class="ri">📖</div>
+        <div>
+          <div class="rt" data-key="res1_title"></div>
+          <div class="rd" data-key="res1_desc"></div>
+          <span class="rtag" data-key="coming_soon"></span>
+        </div>
+      </div>
+      <div class="rc g">
+        <div class="ri">🎨</div>
+        <div>
+          <div class="rt" data-key="res2_title"></div>
+          <div class="rd" data-key="res2_desc"></div>
+          <span class="rtag" data-key="coming_soon"></span>
+        </div>
+      </div>
+      <div class="rc g">
+        <div class="ri">🔮</div>
+        <div>
+          <div class="rt" data-key="res3_title"></div>
+          <div class="rd" data-key="res3_desc"></div>
+          <span class="rtag" data-key="coming_soon"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="panel" id="p-contact">
+    <div class="sh" data-key="nav_contact"></div>
+    <div class="contact-wrap">
+      <p class="contact-intro" data-key="contact_intro"></p>
+
+      <div class="cf-group">
+        <label class="cf-label" data-key="cf_label_name"></label>
+        <input class="cf-input" id="cf-name" type="text" data-placeholder-key="cf_ph_name" placeholder="Your name" />
+      </div>
+      <div class="cf-group">
+        <label class="cf-label" data-key="cf_label_email"></label>
+        <input class="cf-input" id="cf-email" type="email" data-placeholder-key="cf_ph_email" placeholder="your@email.com" />
+      </div>
+      <div class="cf-group">
+        <label class="cf-label" data-key="cf_label_subject"></label>
+        <input class="cf-input" id="cf-subject" type="text" data-placeholder-key="cf_ph_subject" placeholder="Subject" />
+      </div>
+      <div class="cf-group">
+        <label class="cf-label" data-key="cf_label_msg"></label>
+        <textarea class="cf-textarea" id="cf-message" data-placeholder-key="cf_ph_msg" placeholder="Your message..."></textarea>
+      </div>
+      <button class="cf-btn" onclick="sendMessage()" data-key="cf_send"></button>
+      <div class="cf-success" id="cf-success" data-key="cf_success"></div>
+      <p class="cf-note" data-key="cf_note"></p>
+    </div>
+  </section>
+
+</main>
+</div><!-- end .wrap -->
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   TRANSLATION DICTIONARY
+═══════════════════════════════════════════════════════════ */
+var T = {
+  nav_about:   {en:"About",       cn:"关于我",    es:"Sobre mí",   fr:"À propos"},
+  nav_edu:     {en:"Education",   cn:"教育背景",  es:"Formación",  fr:"Formation"},
+  nav_exp:     {en:"Experience",  cn:"工作经历",  es:"Experiencia",fr:"Expérience"},
+  nav_proj:    {en:"Projects",    cn:"项目",      es:"Proyectos",  fr:"Projets"},
+  nav_res:     {en:"Resources",   cn:"资源分享",  es:"Recursos",   fr:"Ressources"},
+  nav_contact: {en:"Contact",     cn:"联系我",    es:"Contacto",   fr:"Contact"},
+
+  hero_tagline:{
+    en:"Exploring the space between media, culture, and emerging technologies.",
+    cn:"探索媒体、文化与新兴技术之间的交汇地带。",
+    es:"Explorando el espacio entre los medios, la cultura y las tecnologías emergentes.",
+    fr:"Explorer l'espace entre les médias, la culture et les technologies émergentes."
+  },
+  hero_eyebrow:{en:"Media · Culture · Technology", cn:"媒体 · 文化 · 技术", es:"Medios · Cultura · Tecnología", fr:"Médias · Culture · Technologie"},
+
+  bio_p1:{
+    en:"I've always been drawn to the way media and culture shape how people think, feel, and connect.",
+    cn:"我一直着迷于媒体与文化如何塑造人们的思考、感受与连接方式。",
+    es:"Siempre me ha fascinado cómo los medios y la cultura moldean la forma en que las personas piensan, sienten y se conectan.",
+    fr:"J'ai toujours été attirée par la façon dont les médias et la culture façonnent la pensée, les émotions et les liens entre les gens."
+  },
+  bio_p2:{
+    en:"My academic journey moves between cultural theory and communication, but I'm equally interested in making things, not just analyzing them.",
+    cn:"我的学术旅程穿梭于文化理论与传播学之间，但我同样热衷于动手创作——而不仅仅是分析。",
+    es:"Mi trayectoria académica transita entre la teoría cultural y la comunicación, pero me interesa tanto crear como analizar.",
+    fr:"Mon parcours académique oscille entre théorie culturelle et communication, mais je suis tout autant attirée par la création que par l'analyse."
+  },
+  bio_p3:{
+    en:"Recently, I've been exploring AI as a creative tool, building small projects and experimenting with new forms of expression.",
+    cn:"最近，我开始将 AI 作为创作工具，构建小型项目，探索全新的表达形式。",
+    es:"Recientemente, he estado explorando la IA como herramienta creativa, construyendo pequeños proyectos y experimentando con nuevas formas de expresión.",
+    fr:"Récemment, j'explore l'IA comme outil créatif, en développant de petits projets et en expérimentant de nouvelles formes d'expression."
+  },
+  bio_p4:{
+    en:"This space is where I bring those ideas together.",
+    cn:"这里是我汇聚这些想法的地方。",
+    es:"Este espacio es donde reúno todas esas ideas.",
+    fr:"Cet espace est l'endroit où je réunis toutes ces idées."
+  },
+
+  stat_lang:  {en:"Languages",      cn:"语言",        es:"Idiomas",      fr:"Langues"},
+  stat_kcl:   {en:"QS #40 World (2025)", cn:"QS 世界第40位 (2025)", es:"QS #40 Mundial (2025)", fr:"QS #40 Mondial (2025)"},
+  stat_uo:    {en:"Canada Top 10",  cn:"加拿大前十",   es:"Top 10 Canadá",fr:"Top 10 Canada"},
+
+  sh_skills_creative:{en:"Skills",          cn:"技能",       es:"Habilidades",  fr:"Compétences"},
+  skill_group1_title:{en:"Creative & Analytical Skills", cn:"创意与分析能力", es:"Habilidades creativas y analíticas", fr:"Compétences créatives & analytiques"},
+  skill_group2_title:{en:"Creative & Digital Practice",  cn:"创意与数字实践", es:"Práctica creativa y digital",       fr:"Pratique créative & numérique"},
+
+  skill_critical:{en:"Critical thinking & media analysis",  cn:"批判性思维与媒体分析", es:"Pensamiento crítico y análisis de medios",    fr:"Pensée critique & analyse des médias"},
+  skill_writing: {en:"Academic writing & research",         cn:"学术写作与研究",       es:"Escritura académica e investigación",         fr:"Rédaction académique & recherche"},
+  skill_cultural:{en:"Cultural and social analysis",        cn:"文化与社会分析",       es:"Análisis cultural y social",                 fr:"Analyse culturelle & sociale"},
+  skill_ai:      {en:"AI-assisted creation (vibe coding)",  cn:"AI 辅助创作",          es:"Creación asistida por IA (vibe coding)",      fr:"Création assistée par IA (vibe coding)"},
+  skill_visual:  {en:"Visual storytelling & content",       cn:"视觉叙事与内容创作",   es:"Narrativa visual y creación de contenido",   fr:"Narration visuelle & création de contenu"},
+  skill_chardesign:{en:"Digital illustration & character design",cn:"数字插画与人物设计",es:"Ilustración digital y diseño de personajes",fr:"Illustration numérique & design de personnages"},
+
+  sh_lang:     {en:"Languages",  cn:"语言能力", es:"Idiomas",  fr:"Langues"},
+  sh_interests:{en:"Interests",  cn:"兴趣爱好", es:"Intereses",fr:"Intérêts"},
+
+  lang_mandarin:{en:"Mandarin", cn:"中文（普通话）",es:"Mandarín",  fr:"Mandarin"},
+  lang_native:  {en:"Native",   cn:"母语",         es:"Nativo",    fr:"Natif"},
+  lang_fluent:  {en:"Fluent",   cn:"流利",          es:"Fluido",    fr:"Courant"},
+
+  int_illus:   {en:"Illustration & Character Design",cn:"插画与人物设计",  es:"Ilustración y diseño de personajes",fr:"Illustration & design de personnages"},
+  int_culture: {en:"Cultural Studies",               cn:"文化研究",        es:"Estudios culturales",               fr:"Études culturelles"},
+  int_religion:{en:"Religion & Mythology",           cn:"宗教与神话",      es:"Religión y mitología",              fr:"Religion & mythologie"},
+  int_meta:    {en:"Chinese Metaphysics",            cn:"中国命理",        es:"Metafísica china",                  fr:"Métaphysique chinoise"},
+  int_lit:     {en:"Literature & Writing",           cn:"文学与写作",      es:"Literatura y escritura",            fr:"Littérature & écriture"},
+  int_lang:    {en:"Language Acquisition",           cn:"语言学习",        es:"Aprendizaje de idiomas",            fr:"Acquisition des langues"},
+  int_ai:      {en:"AI Creative Production",         cn:"AI 创作",         es:"Producción creativa IA",            fr:"Production créative IA"},
+  int_coffee:  {en:"Coffee Making",                  cn:"咖啡制作",        es:"Preparación de café",               fr:"Préparation du café"},
+
+  deg_mcom:    {en:"Master of Communication",cn:"传播学硕士",es:"Máster en Comunicación",fr:"Master en Communication"},
+  deg_uo_meta: {en:"Ottawa, Canada · Sep 2025 – Present",cn:"加拿大渥太华 · 2025年9月 – 至今",es:"Ottawa, Canadá · Sep 2025 – Presente",fr:"Ottawa, Canada · Sep 2025 – Présent"},
+  deg_uo_desc: {
+    en:"Currently pursuing a Master of Communication at the University of Ottawa, focusing on strategic and public communication. My studies are shifting toward a more applied perspective, understanding how communication works in real-world contexts, and how ideas circulate, influence, and connect people.",
+    cn:"目前就读于渥太华大学传播学硕士，专注于战略传播与公共传播。我的学习正向更具应用性的视角转变——理解传播在现实语境中的运作机制，以及观念如何流通、影响并连接人与人之间的关系。",
+    es:"Actualmente cursando el Máster en Comunicación en la Universidad de Ottawa, con enfoque en comunicación estratégica y pública. Mis estudios se orientan hacia una perspectiva más aplicada: comprender cómo funciona la comunicación en contextos reales y cómo las ideas circulan, influyen y conectan a las personas.",
+    fr:"Actuellement en Master de Communication à l'Université d'Ottawa, avec une spécialisation en communication stratégique et publique. Mes études s'orientent vers une perspective plus appliquée, comprendre comment la communication fonctionne dans des contextes réels, et comment les idées circulent, influencent et relient les personnes."
+  },
+  deg_ba:      {en:"BA Culture, Media & Creative Industries (CMCI)",cn:"文化、媒体与创意产业学士（CMCI）",es:"Grado en Cultura, Medios e Industrias Creativas (CMCI)",fr:"Licence Culture, Médias & Industries Créatives (CMCI)"},
+  deg_kcl_meta:{en:"London, UK · Sep 2022 – Jun 2025 · Upper Second-Class Honours (2:1)",cn:"英国伦敦 · 2022年9月 – 2025年6月 · 二等一等荣誉学位（2:1）",es:"Londres, RU · Sep 2022 – Jun 2025 · Segunda clase superior (2:1)",fr:"Londres, RU · Sep 2022 – Juin 2025 · Mention Bien (2:1)"},
+  deg_kcl_desc:{
+    en:"During my undergraduate studies, I worked extensively with cultural theory and media analysis, writing and researching across a range of topics. This experience strengthened my academic writing, close reading, and critical thinking skills, while encouraging me to question and analyze the structures behind media and culture. I was particularly interested in the creative industries and issues around gender, feminism, and underrepresented communities.",
+    cn:"本科阶段，我深入研究了文化理论与媒体分析，涉猎广泛的写作与研究课题。这段经历强化了我的学术写作、细读与批判性思维能力，也促使我不断质疑和分析媒体与文化背后的结构。我尤其关注创意产业，以及性别、女性主义与弱势群体相关议题。",
+    es:"Durante mis estudios de grado, trabajé ampliamente con teoría cultural y análisis de medios, escribiendo e investigando sobre una variedad de temas. Esta experiencia fortaleció mis habilidades de escritura académica, lectura crítica y análisis, al tiempo que me impulsó a cuestionar y analizar las estructuras detrás de los medios y la cultura. Me interesé especialmente por las industrias creativas y las cuestiones de género, feminismo y comunidades subrepresentadas.",
+    fr:"Pendant mes études de licence, j'ai travaillé en profondeur sur la théorie culturelle et l'analyse des médias, en écrivant et recherchant sur une variété de sujets. Cette expérience a renforcé mes compétences en rédaction académique, lecture approfondie et pensée critique, tout en m'encourageant à questionner et analyser les structures derrière les médias et la culture. Je me suis particulièrement intéressée aux industries créatives et aux questions de genre, de féminisme et de communautés sous-représentées."
+  },
+  dissertation:{
+    en:"Dissertation: Female Cross-Gender Performances in Modern Adaptations of Traditional Chinese Theatre",
+    cn:"毕业论文：中国传统戏剧现代改编中的女性跨性别表演",
+    es:"Tesis: Actuaciones femeninas de género cruzado en adaptaciones modernas del teatro chino tradicional",
+    fr:"Mémoire : Performances cross-genre féminines dans les adaptations modernes du théâtre traditionnel chinois"
+  },
+
+  mod_media:      {en:"Media Histories & Theory",        cn:"媒体历史与理论",    es:"Historia y teoría de medios",        fr:"Histoire & théorie des médias"},
+  mod_culture:    {en:"Culture & Identity",               cn:"文化与身份认同",    es:"Cultura e identidad",                fr:"Culture & identité"},
+  mod_creative:   {en:"Creative Institutions",            cn:"创意机构与政策",    es:"Instituciones creativas",            fr:"Institutions créatives"},
+  mod_diversity:  {en:"Diversity Matters",                cn:"多元与包容",        es:"Diversidad e inclusión",             fr:"Diversité & inclusion"},
+  mod_games:      {en:"Digital Games & Gaming",           cn:"数字游戏文化",      es:"Juegos digitales",                   fr:"Jeux vidéo & culture"},
+  mod_activism:   {en:"Culture & Activism",               cn:"文化与社会运动",    es:"Cultura y activismo",                fr:"Culture & militantisme"},
+  mod_performing: {en:"Performing Culture",               cn:"表演文化",          es:"Cultura performativa",               fr:"Culture performative"},
+  mod_managing:   {en:"Managing Cultural Projects",       cn:"文化项目管理",      es:"Gestión de proyectos culturales",    fr:"Gestion de projets culturels"},
+  mod_events:     {en:"Events & Festivals",               cn:"活动与节庆",        es:"Eventos y festivales",               fr:"Événements & festivals"},
+  mod_entrepreneur:{en:"Social Entrepreneurship",         cn:"社会创业",          es:"Emprendimiento social",              fr:"Entrepreneuriat social"},
+  mod_cities:     {en:"Cities, Creativity & Culture",     cn:"城市、创意与文化",  es:"Ciudades y creatividad",             fr:"Villes, créativité & culture"},
+  mod_art:        {en:"Contemporary Art",                 cn:"当代艺术",          es:"Arte contemporáneo",                 fr:"Art contemporain"},
+  mod_music:      {en:"The Music Business",               cn:"音乐产业",          es:"La industria musical",               fr:"L'industrie musicale"},
+  mod_memory:     {en:"Memory, Politics & Commemoration", cn:"记忆、政治与纪念",  es:"Memoria y política",                 fr:"Mémoire, politique & commémoration"},
+
+  exp1_title:{en:"Podcast Host & Creator",       cn:"播客主理人",             es:"Podcaster y creadora",           fr:"Podcasteuse & créatrice"},
+  exp1_date: {en:"Jan 2025 – Present",           cn:"2025年1月 – 至今",       es:"Ene 2025 – Presente",            fr:"Jan 2025 – Présent"},
+  exp1_org:  {en:"Freelance · Abroad Diaries & Mind Decode", cn:"独立创作 · Abroad Diaries & Mind Decode", es:"Autónoma · Abroad Diaries & Mind Decode", fr:"Indépendante · Abroad Diaries & Mind Decode"},
+  exp1_b1:   {en:"Founded and host two podcasts: Abroad Diaries (collaborative, exploring life across cultures) and Mind Decode (solo, focused on psychology and self-discovery).",cn:"创立并主持两档播客：Abroad Diaries（合作，探索跨文化生活）与 Mind Decode（个人，聚焦心理与自我认知）。",es:"Fundó y presenta dos podcasts: Abroad Diaries (colaborativo, sobre vida intercultural) y Mind Decode (en solitario, centrado en psicología).",fr:"Fondatrice et animatrice de deux podcasts : Abroad Diaries (collaboratif) et Mind Decode (solo, axé sur la psychologie)."},
+  exp1_b2:   {en:"Designed full branding for both shows, cover art, promotional visuals, and social media identity.",cn:"为两档播客完整设计品牌视觉体系，包括封面、宣传物料及社交媒体视觉形象。",es:"Diseñó la identidad visual completa de ambos programas: portadas, materiales promocionales e identidad en redes sociales.",fr:"Conçu l'identité visuelle complète des deux émissions, pochettes, visuels promotionnels et identité sur les réseaux sociaux."},
+  exp1_b3:   {en:"Managed all post-production (audio editing, sound design) and social media promotion.",cn:"负责全部后期制作（音频剪辑与音效设计）及社交媒体推广。",es:"Gestionó toda la posproducción (edición de audio, diseño sonoro) y la promoción en redes sociales.",fr:"Géré toute la post-production (montage audio, sound design) et la promotion sur les réseaux sociaux."},
+
+  exp2_title:{en:"Graphic Designer of CMCI Winter Festival 2024", cn:"视觉设计师 · CMCI 冬季节 2024", es:"Diseñadora gráfica · CMCI Winter Festival 2024", fr:"Graphiste · CMCI Winter Festival 2024"},
+  exp2_date: {en:"Sep 2024 – Jan 2025",   cn:"2024年9月 – 2025年1月", es:"Sep 2024 – Ene 2025", fr:"Sep 2024 – Jan 2025"},
+  exp2_type: {en:"Full-time · London Area, United Kingdom · Hybrid",cn:"全职 · 英国伦敦 · 混合办公",es:"Jornada completa · Londres, RU · Híbrido",fr:"Temps plein · Londres, RU · Hybride"},
+  exp2_b1:   {en:"Led the media subgroup, contributing to event planning and coordinating team meetings.",cn:"主导媒体小组，参与活动策划并统筹团队会议。",es:"Dirigió el subgrupo de medios, contribuyendo a la planificación del evento y coordinando reuniones.",fr:"A dirigé le sous-groupe médias, contribuant à la planification de l'événement et coordonnant les réunions."},
+  exp2_b2:   {en:"Designed the event's visual identity, including logos, posters, and promotional materials.",cn:"完整设计活动视觉形象，包括标志、海报及全套宣传物料。",es:"Diseñó la identidad visual del evento, incluyendo logos, carteles y materiales promocionales.",fr:"Conçu l'identité visuelle de l'événement, incluant logos, affiches et supports promotionnels."},
+  exp2_b3:   {en:"Managed the event's Instagram presence, creating posts and real-time reels.",cn:"全程运营活动 Instagram，涵盖内容创作与实时视频发布。",es:"Gestionó la presencia del evento en Instagram, creando publicaciones y reels en tiempo real.",fr:"Géré le compte Instagram de l'événement, créant des publications et des reels en direct."},
+  exp2_b4:   {en:"Developed a pre-event interactive quiz using Padlet to boost audience engagement.",cn:"通过 Padlet 搭建活动前互动问答，提升观众参与感。",es:"Desarrolló un cuestionario interactivo pre-evento mediante Padlet para aumentar la participación del público.",fr:"Développé un quiz interactif pré-événement via Padlet pour renforcer l'engagement du public."},
+  exp2_b5:   {en:"Designed a feedback survey via Microsoft Forms and conducted data analysis to evaluate event impact.",cn:"使用 Microsoft Forms 设计活动后反馈问卷，对数据进行分析以评估活动影响。",es:"Diseñó una encuesta de opinión post-evento mediante Microsoft Forms y realizó análisis de datos para evaluar el impacto.",fr:"Conçu une enquête post-événement via Microsoft Forms et réalisé une analyse des données pour évaluer l'impact."},
+  exp2_b6:   {en:"Supported event-day logistics as the Instagram account handler and front desk staff.",cn:"活动当天担任 Instagram 运营员及前台工作人员，提供现场协助。",es:"Apoyó la logística del día del evento como gestora de la cuenta de Instagram y personal de recepción.",fr:"Soutenu la logistique le jour de l'événement en tant que gestionnaire du compte Instagram et personnel d'accueil."},
+
+  exp3_title:{en:"Mentor · Arts & Humanities Buddy Scheme",cn:"导师 · 文理学院朋辈计划",es:"Mentora · Programa de acompañamiento",fr:"Mentor · Programme de tutorat Arts & Humanités"},
+  exp3_date: {en:"Sep 2023 – Aug 2024",cn:"2023年9月 – 2024年8月",es:"Sep 2023 – Ago 2024",fr:"Sep 2023 – Août 2024"},
+  exp3_b1:   {en:"Mentored 10 first-year CMCI students through their academic and social transition to university life.",cn:"引导10名CMCI专业一年级新生顺利完成学业与社交层面的大学生活过渡。",es:"Acompañó a 10 estudiantes de primer año de CMCI en su transición a la vida universitaria.",fr:"Accompagné 10 étudiants de première année de CMCI dans leur transition à la vie universitaire."},
+  exp3_b2:   {en:"Maintained regular contact via bi-weekly check-ins and at least one in-person meeting per semester.",cn:"通过每两周一次邮件跟进及每学期至少一次面对面会面，保持持续沟通。",es:"Mantuvo contacto regular mediante revisiones quincenales y al menos una reunión presencial por semestre.",fr:"Maintenu un contact régulier via des points bimensuels et au moins une rencontre en personne par semestre."},
+  exp3_b3:   {en:"Summarised communications and provided structured feedback to improve student support services.",cn:"系统整理沟通记录并向院系提交反馈，协助优化学生支持服务。",es:"Resumió las comunicaciones y aportó comentarios estructurados para mejorar los servicios de apoyo.",fr:"Synthétisé les échanges et fourni des retours structurés pour améliorer les services d'accompagnement."},
+
+  exp_mentee_title:{en:"Mentee · Into Academia Mentoring Scheme",cn:"学员 · Into Academia 学术导师计划",es:"Mentoreada · Programa Into Academia",fr:"Mentorée · Programme Into Academia"},
+  exp_mentee_date: {en:"Dec 2023 – Jun 2024",cn:"2023年12月 – 2024年6月",es:"Dic 2023 – Jun 2024",fr:"Déc 2023 – Juin 2024"},
+
+  exp4_title:{en:"Mandarin Speaking Practice Volunteer",cn:"普通话口语练习志愿者",es:"Voluntaria de práctica de mandarín oral",fr:"Bénévole de pratique orale en mandarin"},
+  exp4_date: {en:"Sep 2023 – Apr 2024",cn:"2023年9月 – 2024年4月",es:"Sep 2023 – Abr 2024",fr:"Sep 2023 – Avr 2024"},
+  exp4_org:  {en:"Speaking Practices Scheme · KCL",cn:"口语练习计划 · 伦敦国王学院",es:"Programa de práctica oral · KCL",fr:"Programme de pratique orale · KCL"},
+  exp4_b1:   {en:"Facilitated weekly one-on-one 30-minute Mandarin sessions, supporting participants' spoken confidence and fluency.",cn:"每周主持一对一30分钟普通话口语练习，帮助学员提升口语自信与流利度。",es:"Facilitó sesiones semanales individuales de 30 minutos en mandarín, apoyando la confianza oral y la fluidez de los participantes.",fr:"Animé des séances hebdomadaires individuelles de 30 minutes en mandarin, favorisant la confiance à l'oral."},
+
+  exp5_title:{en:"Editing Assistant Intern",cn:"剪辑助理实习生",es:"Asistente de edición en prácticas",fr:"Assistante de montage (stage)"},
+  exp5_date: {en:"Jul – Aug 2023",cn:"2023年7月 – 8月",es:"Jul – Ago 2023",fr:"Juil – Août 2023"},
+  exp5_org:  {en:"Nanjing Shiguangji Cultural Media · China",cn:"南京时光机文化传媒 · 中国",es:"Nanjing Shiguangji Cultural Media · China",fr:"Nanjing Shiguangji Cultural Media · Chine"},
+  exp5_b1:   {en:"Produced copy for two short videos weekly and one long video monthly, contributing to creative ideation and scriptwriting.",cn:"每周产出两条短视频、每月一条长视频文案，积极参与创意策划与脚本写作。",es:"Produjo textos para dos vídeos cortos semanales y un largo mensual, contribuyendo a la ideación creativa.",fr:"Rédigé les textes de deux courtes vidéos par semaine et d'une longue mensuelle, en contribuant à l'idéation créative."},
+  exp5_b2:   {en:"Proofread and polished video copywriting for accuracy and professional quality.",cn:"对视频文案进行审校与润色，确保内容准确、表达专业。",es:"Revisó y perfeccionó los textos de los vídeos para garantizar su precisión y calidad profesional.",fr:"Relu et peaufiné les textes des vidéos pour en garantir l'exactitude et le niveau professionnel."},
+  exp5_b3:   {en:"Collaborated with editors and creators to align content with the series' creative vision.",cn:"与编辑及创作团队密切合作，确保内容与系列创作方向保持一致。",es:"Colaboró con editores y creadores para alinear el contenido con la visión creativa de la serie.",fr:"Collaboré avec les monteurs et créateurs pour aligner le contenu sur la vision créative de la série."},
+
+  res_sh:     {en:"Resources, Coming Soon",cn:"资源分享 · 即将上线",es:"Recursos, Próximamente",fr:"Ressources, Bientôt disponible"},
+  res1_title: {en:"Reading Lists & References",       cn:"阅读书单与参考资料",  es:"Listas de lectura",               fr:"Listes de lecture & références"},
+  res1_desc:  {en:"Curated reads on cultural theory, media studies, communication, and creative industries.",cn:"精选文化理论、媒体研究、传播学与创意产业阅读材料。",es:"Lecturas seleccionadas sobre teoría cultural, estudios de medios, comunicación e industrias creativas.",fr:"Lectures sélectionnées sur la théorie culturelle, les études médiatiques et la communication."},
+  res2_title: {en:"Creative Tools & Guides",          cn:"创意工具与使用指南",  es:"Herramientas y guías creativas",   fr:"Outils & guides créatifs"},
+  res2_desc:  {en:"Workflows and tips for AI-assisted illustration, character design, and digital content creation.",cn:"AI 辅助插画、人物设计与数字内容创作的工作流程与实用技巧。",es:"Flujos de trabajo y consejos para ilustración asistida por IA y creación de contenido digital.",fr:"Flux de travail et conseils pour l'illustration assistée par IA et la création de contenu numérique."},
+  res3_title: {en:"Chinese Metaphysics Notes",        cn:"中国命理学笔记",      es:"Notas de metafísica china",        fr:"Notes de métaphysique chinoise"},
+  res3_desc:  {en:"Personal explorations in BaZi, symbolism, and cultural mythology, scholarly inquiry and personal passion.",cn:"个人关于八字、象征体系与文化神话的学习探索，兼具学术研究与个人热情。",es:"Exploraciones personales en BaZi, simbolismo y mitología cultural.",fr:"Explorations personnelles du BaZi, du symbolisme et de la mythologie culturelle."},
+  coming_soon:{en:"Uploading soon",cn:"即将上传",es:"Próximamente",fr:"Bientôt disponible"},
+
+  contact_intro:{
+    en:"I'd love to hear from you, whether it's about collaboration, opportunities, or just a conversation.",
+    cn:"无论是关于合作、机会，还是只是想聊聊，我都很乐意收到你的留言。",
+    es:"Me encantaría saber de ti, ya sea para colaborar, explorar oportunidades o simplemente conversar.",
+    fr:"Je serais ravie d'avoir de vos nouvelles, que ce soit pour une collaboration, une opportunité, ou simplement une conversation."
+  },
+  cf_label_name:   {en:"Name",    cn:"姓名",    es:"Nombre",   fr:"Nom"},
+  cf_label_email:  {en:"Email",   cn:"邮箱",    es:"Correo",   fr:"E-mail"},
+  cf_label_subject:{en:"Subject", cn:"主题",     es:"Asunto",   fr:"Sujet"},
+  cf_label_msg:    {en:"Message", cn:"留言内容", es:"Mensaje",  fr:"Message"},
+  cf_ph_name:      {en:"Your name",           cn:"你的名字",         es:"Tu nombre",       fr:"Votre nom"},
+  cf_ph_email:     {en:"your@email.com",       cn:"your@email.com",   es:"tu@email.com",    fr:"votre@email.com"},
+  cf_ph_subject:   {en:"Subject",              cn:"主题",             es:"Asunto",          fr:"Sujet"},
+  cf_ph_msg:       {en:"Your message...",      cn:"你想说的话...",     es:"Tu mensaje...",   fr:"Votre message..."},
+  cf_send:         {en:"Send Message →",       cn:"发送留言 →",       es:"Enviar mensaje →",fr:"Envoyer →"},
+  cf_success:      {
+    en:"✓  Message sent! I'll be in touch soon.",
+    cn:"✓  留言已发送！我会尽快回复你。",
+    es:"✓  ¡Mensaje enviado! Te responderé pronto.",
+    fr:"✓  Message envoyé ! Je vous répondrai bientôt."
+  },
+  cf_note:{
+    en:"This form sends your message directly to my inbox. Alternatively, reach me at ziyuezhang2025@163.com",
+    cn:"此表单将直接发送消息到我的邮箱。或者，你也可以直接发邮件到 ziyuezhang2025@163.com",
+    es:"Este formulario envía tu mensaje directamente a mi bandeja de entrada. También puedes escribirme a ziyuezhang2025@163.com",
+    fr:"Ce formulaire envoie votre message directement dans ma boîte mail. Vous pouvez aussi m'écrire à ziyuezhang2025@163.com"
+  },
+};
+
+/* ═══════════════════════════════════════════════════════════
+   LANGUAGE ENGINE
+═══════════════════════════════════════════════════════════ */
+var lang = 'en';
+
+function setL(l) {
+  lang = l;
+  ['en','cn','es','fr'].forEach(function(code) {
+    var btn = document.getElementById('l-' + code);
+    if (btn) btn.classList.toggle('on', code === l);
+  });
+  document.querySelectorAll('[data-key]').forEach(function(el) {
+    var key = el.getAttribute('data-key');
+    if (T[key] && T[key][l] !== undefined) {
+      el.textContent = T[key][l];
+    }
+  });
+  // Update placeholders
+  document.querySelectorAll('[data-placeholder-key]').forEach(function(el) {
+    var key = el.getAttribute('data-placeholder-key');
+    if (T[key] && T[key][l] !== undefined) {
+      el.placeholder = T[key][l];
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════════ */
+function go(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('on'); });
+  document.querySelectorAll('.nb').forEach(function(b) { b.classList.remove('on'); });
+  document.getElementById('p-' + id).classList.add('on');
+  btn.classList.add('on');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROJECT MODALS
+═══════════════════════════════════════════════════════════ */
+function openProject(id) {
+  var modal = document.getElementById('modal-' + id);
+  if (!modal) return;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+}
+
+function closeProject(id) {
+  var modal = document.getElementById('modal-' + id);
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.pc-detail.open').forEach(function(m) {
+      m.classList.remove('open');
+    });
+    document.body.style.overflow = '';
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT FORM — uses Formspree (free, no backend needed)
+   Replace "YOUR_FORM_ID" below with your actual Formspree ID.
+   Sign up free at https://formspree.io
+═══════════════════════════════════════════════════════════ */
+function sendMessage() {
+  var name    = document.getElementById('cf-name').value.trim();
+  var email   = document.getElementById('cf-email').value.trim();
+  var subject = document.getElementById('cf-subject').value.trim();
+  var message = document.getElementById('cf-message').value.trim();
+
+  if (!name || !email || !message) {
+    alert(lang === 'cn' ? '请填写姓名、邮箱和留言内容。' :
+          lang === 'es' ? 'Por favor completa nombre, correo y mensaje.' :
+          lang === 'fr' ? 'Veuillez remplir le nom, l\'e-mail et le message.' :
+          'Please fill in your name, email, and message.');
+    return;
+  }
+
+  var btn = document.querySelector('.cf-btn');
+  btn.textContent = '…';
+  btn.disabled = true;
+
+  // Using mailto as fallback — replace with Formspree for real email delivery
+  // To enable real form submission, replace the fetch URL with:
+  // "https://formspree.io/f/YOUR_FORM_ID"
+  var formData = new FormData();
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('_subject', subject || 'Message from portfolio');
+  formData.append('message', message);
+
+  fetch('https://formspree.io/f/maqabpja', {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  }).then(function(res) {
+    btn.disabled = false;
+    setL(lang); // restore button text
+    if (res.ok) {
+      document.getElementById('cf-success').style.display = 'block';
+      document.getElementById('cf-name').value = '';
+      document.getElementById('cf-email').value = '';
+      document.getElementById('cf-subject').value = '';
+      document.getElementById('cf-message').value = '';
+    } else {
+      // Fallback: open mailto
+      window.location.href = 'mailto:ziyuezhang2025@163.com?subject=' +
+        encodeURIComponent(subject || 'Message from portfolio') +
+        '&body=' + encodeURIComponent('From: ' + name + ' <' + email + '>\n\n' + message);
+    }
+  }).catch(function() {
+    btn.disabled = false;
+    setL(lang);
+    // Fallback: mailto
+    window.location.href = 'mailto:ziyuezhang2025@163.com?subject=' +
+      encodeURIComponent(subject || 'Message from portfolio') +
+      '&body=' + encodeURIComponent('From: ' + name + ' <' + email + '>\n\n' + message);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function() {
+  setL('en');
+});
+</script>
+</body>
+</html>
